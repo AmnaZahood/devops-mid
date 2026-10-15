@@ -1,0 +1,26 @@
+services:
+  web:
+    image: amnazahood/mid-app:55847
+    environment:
+      - ROLLNO=55847
+      - REDIS_HOST=cache
+    ports:
+      - "8047:5000"
+    networks:
+      - net-55847
+    depends_on:
+      - cache
+
+  cache:
+    image: redis:alpine
+    command: redis-server --appendonly yes --dir /data
+    volumes:
+      - data-55847:/data
+    networks:
+      - net-55847
+
+networks:
+  net-55847:
+
+volumes:
+  data-55847:
